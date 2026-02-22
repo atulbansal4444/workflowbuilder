@@ -1,0 +1,321 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bg-app: #f5f7fb;
+  --surface: #ffffff;
+  --border: #dfe3ea;
+  --text: #1d2735;
+  --muted-text: #4d5c70;
+  --node-bg: #f6f9ff;
+  --node-border: #c6d0df;
+  --button-border: #bec9db;
+  --button-bg: #fff;
+  --button-hover: #f3f6fc;
+  --input-bg: #fff;
+  --input-border: #c6d0df;
+  --error-text: #b5002d;
+  --error-bg: #ffe8ef;
+  --error-border: #ffbfd1;
+}
+
+[data-theme='dark'] {
+  --bg-app: #0f141b;
+  --surface: #171f29;
+  --border: #2a3646;
+  --text: #e4ebf5;
+  --muted-text: #a7b5c9;
+  --node-bg: #1d2835;
+  --node-border: #3b4c62;
+  --button-border: #3b4c62;
+  --button-bg: #1b2532;
+  --button-hover: #253346;
+  --input-bg: #1b2532;
+  --input-border: #3b4c62;
+  --error-text: #ff8db0;
+  --error-bg: #3a1f2a;
+  --error-border: #714055;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-app);
+  color: var(--text);
+}
+
+#app {
+  height: 100vh;
+}
+
+.builder-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 320px;
+  height: 100%;
+}
+
+.palette-panel,
+.config-panel {
+  padding: 16px;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  overflow: auto;
+}
+
+.config-panel {
+  border-right: none;
+  border-left: 1px solid var(--border);
+}
+
+.palette-panel h2,
+.config-panel h2,
+.logs-panel h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.palette-panel p,
+.config-panel p {
+  margin: 0 0 12px;
+  color: var(--muted-text);
+  font-size: 14px;
+}
+
+.node-item {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+  border: 1px solid var(--node-border);
+  background: var(--node-bg);
+  border-radius: 8px;
+  min-height: 44px;
+  padding: 8px;
+  cursor: grab;
+  font-weight: 600;
+}
+
+.node-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.node-inline-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.node-item--start,
+.node-item--end {
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  min-height: 68px;
+  border-radius: 9999px;
+  justify-self: center;
+  font-size: 12px;
+  line-height: 1.15;
+}
+
+.node-item--start {
+  background: #d1fae5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.node-item--end {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.node-item--transform {
+  color: var(--text);
+}
+
+.canvas-section {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) 180px;
+  min-width: 0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.toolbar h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  border: 1px solid var(--button-border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--button-bg);
+  cursor: pointer;
+  color: var(--text);
+}
+
+button:hover {
+  background: var(--button-hover);
+}
+
+.hidden {
+  display: none;
+}
+
+.canvas-wrapper {
+  min-height: 0;
+}
+
+.vue-flow__node.wf-node {
+  min-width: 104px;
+  min-height: 40px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.vue-flow__node.wf-node--start {
+  width: 76px;
+  height: 76px;
+  min-width: 76px;
+  min-height: 76px;
+  border-radius: 9999px;
+  background: #d1fae5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.vue-flow__node.wf-node--end {
+  width: 76px;
+  height: 76px;
+  min-width: 76px;
+  min-height: 76px;
+  border-radius: 9999px;
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.vue-flow__node.wf-node--transform {
+  background: var(--node-bg);
+  border-color: var(--node-border);
+  color: var(--text);
+}
+
+[data-theme='dark'] .vue-flow__node.wf-node--start {
+  background: #064e3b;
+  border-color: #10b981;
+  color: #d1fae5;
+}
+
+[data-theme='dark'] .vue-flow__node.wf-node--end {
+  background: #7f1d1d;
+  border-color: #ef4444;
+  color: #fee2e2;
+}
+
+[data-theme='dark'] .node-item--start {
+  background: #064e3b;
+  border-color: #10b981;
+  color: #d1fae5;
+}
+
+[data-theme='dark'] .node-item--end {
+  background: #7f1d1d;
+  border-color: #ef4444;
+  color: #fee2e2;
+}
+
+.logs-panel {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 12px 16px;
+  overflow: auto;
+}
+
+.logs-panel ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.config-form {
+  display: grid;
+  gap: 8px;
+}
+
+.config-form h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+label {
+  font-size: 13px;
+  color: var(--muted-text);
+}
+
+input,
+select,
+textarea,
+pre {
+  width: 100%;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+textarea {
+  resize: vertical;
+}
+
+pre {
+  margin: 0;
+  min-height: 120px;
+  overflow: auto;
+}
+
+.error {
+  margin-top: 10px;
+  color: var(--error-text);
+}
+
+.global-error {
+  position: absolute;
+  top: 68px;
+  right: 16px;
+  margin: 0;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
